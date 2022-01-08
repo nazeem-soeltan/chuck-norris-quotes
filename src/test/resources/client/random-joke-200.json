@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url":"/jokes/random"
+  },
+  "response": {
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "status": 200,
+    "jsonBody": {
+      "categories": [],
+      "created_at": "2020-01-05 13:42:29.296379",
+      "icon_url": "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+      "id": "4bvl1JLQS-uQzDK2scuXRw",
+      "updated_at": "2020-01-05 13:42:29.296379",
+      "url": "https://api.chucknorris.io/jokes/4bvl1JLQS-uQzDK2scuXRw",
+      "value": "If you ever hear Chuck Norris humming \"Ain't That a Kick In the Head,\" flee for your life. You don't want to be around to see what happens next."
+    }
+  }
+}
