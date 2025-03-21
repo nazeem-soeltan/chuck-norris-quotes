@@ -13,7 +13,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @ChuckNorrisQuotesIT
 public class QuotesControllerIT {
 
-    private static final String RESPONSE_PATH = "api/quotes/%s";
+    static final String RESPONSE_PATH = "api/quotes/%s";
 
     @Autowired
     private MockMvcTester mockMvc;

@@ -14,8 +14,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = QuotesController.PATH)
+@RequestMapping(
+        path = QuotesController.PATH,
+        produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class QuotesController {
 
@@ -27,18 +31,29 @@ public class QuotesController {
             summary = "Get Chuck Norris quotes",
             description = "Returns list of quotes.",
             responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Successful response."
-                    )
+                    @ApiResponse(responseCode = "200", description = "Successful response.")
             })
-    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @GetMapping
     @ResponseStatus(OK)
     public QuotesResponse getQuotes(
             @RequestParam(name = "max-quotes", defaultValue = "5") final int maxQuotes
     ) {
+        final var quotes = quotesService.getRandomQuotes(maxQuotes).stream()
+                .map(QuoteDto::from)
+                .toList();
+
         return QuotesResponse.builder()
-                .quotes(quotesService.getRandomQuotes(maxQuotes))
+                .quotes(quotes)
+                .build();
+    }
+
+    @GetMapping(value = "daily-quote")
+    @ResponseStatus(OK)
+    public QuotesResponse getDailyQuote() {
+        final var quoteDto = QuoteDto.from(quotesService.getDailyQuote());
+
+        return QuotesResponse.builder()
+                .quotes(List.of(quoteDto))
                 .build();
     }
 }

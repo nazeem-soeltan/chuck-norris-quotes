@@ -1,3 +1,6 @@
+db:
+  name: cnq_test
+
 feign:
   client:
     config:

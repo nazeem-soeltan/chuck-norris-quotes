@@ -1,7 +1,7 @@
 package dev.nazeem.chucknorrisquotes.quotes;
 
 import static dev.nazeem.chucknorrisquotes.fixtures.ChuckNorrisJokesFixtures.JOKES_RESPONSE;
-import static dev.nazeem.chucknorrisquotes.fixtures.QuoteFixtures.QUOTE;
+import static dev.nazeem.chucknorrisquotes.fixtures.QuoteFixtures.QUOTE_FROM_JOKES_RESPONSE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import dev.nazeem.chucknorrisquotes.quotes.data.Quote;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +28,7 @@ class QuotesServiceTest {
     private QuotesService quotesService;
 
     @Test
-    void shouldReturnRequestedAmountOfQuotes() {
+    void returnRequestedAmountOfQuotes() {
         when(chuckNorrisJokesClient.getRandomJoke())
                 .thenReturn(JOKES_RESPONSE);
 
@@ -36,11 +37,11 @@ class QuotesServiceTest {
         assertThat(quotes)
                 .hasSize(1)
                 .first()
-                .isEqualTo(QUOTE);
+                .isEqualTo(QUOTE_FROM_JOKES_RESPONSE);
     }
 
     @Test
-    void shouldCallJokesClientEqualToProvidedAmountOfMaxQuotes() {
+    void callJokesClientEqualToProvidedAmountOfMaxQuotes() {
         when(chuckNorrisJokesClient.getRandomJoke())
                 .thenReturn(JOKES_RESPONSE);
 

@@ -1,3 +1,10 @@
+db:
+  name: ${MONGO_DB_NAME}
+  user: ${MONGO_DB_USER}
+  password: ${MONGO_DB_PASSWORD}
+
+spring.data.mongodb.uri: "mongodb://${db.user}:${db.password}@localhost:27017/${db.name}"
+
 feign:
   client:
     config:
