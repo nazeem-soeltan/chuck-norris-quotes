@@ -1,0 +1,7 @@
+db:
+  name: cnq_test
+  user: admin
+  password: password
+
+daily-quote-scheduler:
+  cron: "-"

@@ -1,4 +1,4 @@
-package dev.nazeem.chucknorrisquotes.quotes;
+package dev.nazeem.chucknorrisquotes.quotes.api;
 
 import dev.nazeem.chucknorrisquotes.AbstractBaseIT;
 import dev.nazeem.chucknorrisquotes.quotes.data.QuoteRepository;
@@ -13,7 +13,7 @@ import java.time.Instant;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static dev.nazeem.chucknorrisquotes.fixtures.QuoteFixtures.DAILY_QUOTE;
-import static dev.nazeem.chucknorrisquotes.quotes.QuotesControllerIT.RESPONSE_PATH;
+import static dev.nazeem.chucknorrisquotes.quotes.api.QuotesControllerIT.RESPONSE_PATH;
 import static dev.nazeem.chucknorrisquotes.quotes.api.QuotesController.PATH;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
