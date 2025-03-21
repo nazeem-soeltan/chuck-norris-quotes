@@ -1,4 +1,4 @@
-package dev.nazeem.chucknorrisquotes.quotes;
+package dev.nazeem.chucknorrisquotes.quotes.api;
 
 import dev.nazeem.chucknorrisquotes.ChuckNorrisQuotesIT;
 import org.junit.jupiter.api.Test;
