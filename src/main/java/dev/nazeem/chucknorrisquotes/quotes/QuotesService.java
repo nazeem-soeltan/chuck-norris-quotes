@@ -47,6 +47,7 @@ public class QuotesService {
 
     private JokesResponse fetchJoke() {
         try {
+            log.info("Attempt fetching joke ...");
             return chuckNorrisJokesClient.getRandomJoke();
         } catch (final Exception e) {
             log.error("Unable to fetch joke", e);

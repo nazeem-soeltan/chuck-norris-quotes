@@ -30,7 +30,7 @@
         <!-- external libraries -->
         <spring-cloud.version>2024.0.0</spring-cloud.version>
         <springdoc.version>1.8.0</springdoc.version>
-        <testcontainers-mongodb.version>1.20.6</testcontainers-mongodb.version>
+        <testcontainers.version>1.20.5</testcontainers.version>
     </properties>
     <dependencies>
         <dependency>
@@ -74,8 +74,14 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
             <artifactId>mongodb</artifactId>
-            <version>${testcontainers-mongodb.version}</version>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

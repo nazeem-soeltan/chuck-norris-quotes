@@ -4,7 +4,6 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import dev.nazeem.chucknorrisquotes.quotes.QuotesService;
-import dev.nazeem.chucknorrisquotes.quotes.data.Quote;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +14,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = QuotesController.PATH)
+@RequestMapping(
+        path = QuotesController.PATH,
+        produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class QuotesController {
 
@@ -28,12 +31,9 @@ public class QuotesController {
             summary = "Get Chuck Norris quotes",
             description = "Returns list of quotes.",
             responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Successful response."
-                    )
+                    @ApiResponse(responseCode = "200", description = "Successful response.")
             })
-    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @GetMapping
     @ResponseStatus(OK)
     public QuotesResponse getQuotes(
             @RequestParam(name = "max-quotes", defaultValue = "5") final int maxQuotes
@@ -44,6 +44,16 @@ public class QuotesController {
 
         return QuotesResponse.builder()
                 .quotes(quotes)
+                .build();
+    }
+
+    @GetMapping(value = "daily-quote")
+    @ResponseStatus(OK)
+    public QuotesResponse getDailyQuote() {
+        final var quoteDto = QuoteDto.from(quotesService.getDailyQuote());
+
+        return QuotesResponse.builder()
+                .quotes(List.of(quoteDto))
                 .build();
     }
 }
