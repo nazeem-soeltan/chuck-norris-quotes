@@ -24,7 +24,7 @@ public class CustomizedQuoteRepositoryImpl implements CustomizedQuoteRepository 
 
 
         final var query = new Query();
-        query.addCriteria(Criteria.where("instantField")
+        query.addCriteria(Criteria.where("createdAt")
                 .gte(startOfDay)
                 .lt(endOfDay));
 
