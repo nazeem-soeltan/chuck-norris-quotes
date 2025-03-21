@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.test.web.servlet.assertj.MvcTestResult;
 
-import static dev.nazeem.chucknorrisquotes.quotes.QuotesController.PATH;
+import static dev.nazeem.chucknorrisquotes.quotes.api.QuotesController.PATH;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @ChuckNorrisQuotesIT
 public class QuotesControllerIT {
+
+    private static final String RESPONSE_PATH = "api/quotes/%s";
 
     @Autowired
     private MockMvcTester mockMvc;
@@ -26,7 +28,7 @@ public class QuotesControllerIT {
                 .hasStatusOk()
                 .hasContentTypeCompatibleWith(APPLICATION_JSON_VALUE)
                 .bodyJson()
-                .isStrictlyEqualTo("getQuotes-no-limit-default-5.json");
+                .isStrictlyEqualTo(RESPONSE_PATH.formatted("getQuotes-no-limit-default-5.json"));
     }
 
     @Test
@@ -40,7 +42,7 @@ public class QuotesControllerIT {
                 .hasStatusOk()
                 .hasContentTypeCompatibleWith(APPLICATION_JSON_VALUE)
                 .bodyJson()
-                .isStrictlyEqualTo("getQuotes-limit-2.json");
+                .isStrictlyEqualTo(RESPONSE_PATH.formatted("getQuotes-limit-2.json"));
     }
 
 }
