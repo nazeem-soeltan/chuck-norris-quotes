@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import dev.nazeem.chucknorrisquotes.quotes.QuotesService;
+import dev.nazeem.chucknorrisquotes.quotes.data.Quote;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,8 +38,12 @@ public class QuotesController {
     public QuotesResponse getQuotes(
             @RequestParam(name = "max-quotes", defaultValue = "5") final int maxQuotes
     ) {
+        final var quotes = quotesService.getRandomQuotes(maxQuotes).stream()
+                .map(QuoteDto::from)
+                .toList();
+
         return QuotesResponse.builder()
-                .quotes(quotesService.getRandomQuotes(maxQuotes))
+                .quotes(quotes)
                 .build();
     }
 }

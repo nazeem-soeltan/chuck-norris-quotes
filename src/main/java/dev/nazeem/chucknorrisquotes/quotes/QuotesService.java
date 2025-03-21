@@ -3,6 +3,8 @@ package dev.nazeem.chucknorrisquotes.quotes;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import dev.nazeem.chucknorrisquotes.quotes.data.Quote;
+import dev.nazeem.chucknorrisquotes.quotes.data.QuoteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class QuotesService {
 
+    private final QuoteRepository quoteRepository;
     private final ChuckNorrisJokesClient chuckNorrisJokesClient;
 
     public List<Quote> getRandomQuotes(int maxQuotes) {
@@ -23,6 +26,10 @@ public class QuotesService {
                 .mapToObj(num -> fetchJoke())
                 .map(Quote::from)
                 .toList();
+    }
+
+    public Quote getDailyQuote() {
+        return null;
     }
 
     private JokesResponse fetchJoke() {
