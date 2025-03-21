@@ -9,8 +9,8 @@ import lombok.experimental.UtilityClass;
 public class QuoteFixtures {
 
     public static final Quote QUOTE = Quote.builder()
-            .key(JOKES_RESPONSE.getId())
-            .text(JOKES_RESPONSE.getValue())
+            .key(JOKES_RESPONSE.id())
+            .text(JOKES_RESPONSE.value())
             .build();
 
 }

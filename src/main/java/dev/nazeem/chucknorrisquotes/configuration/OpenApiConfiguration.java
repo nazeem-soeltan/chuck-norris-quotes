@@ -11,8 +11,6 @@ import io.swagger.v3.oas.models.info.Info;
 @Configuration
 public class OpenApiConfiguration {
 
-    public static final String PROBLEM_SCHEMA_REF = "https://opensource.zalando.com/restful-api-guidelines/problem-1.0.1.yaml#/Problem";
-
     @Bean
     public OpenAPI openApi() {
         return new OpenAPI()

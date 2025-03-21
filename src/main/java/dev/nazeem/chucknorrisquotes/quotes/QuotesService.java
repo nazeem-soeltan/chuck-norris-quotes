@@ -25,8 +25,8 @@ public class QuotesService {
 
     private Quote buildQuote(final JokesResponse jokesResponse) {
         return Quote.builder()
-                .key(jokesResponse.getId())
-                .text(jokesResponse.getValue())
+                .key(jokesResponse.id())
+                .text(jokesResponse.value())
                 .build();
     }
 

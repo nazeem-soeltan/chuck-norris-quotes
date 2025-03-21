@@ -46,8 +46,8 @@ class QuotesControllerTest {
                 get("/api/quotes?max-quotes=1").accept(APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.quotes").isNotEmpty())
-                .andExpect(jsonPath("$.quotes[0].key").value(QUOTE.getKey()))
-                .andExpect(jsonPath("$.quotes[0].text").value(QUOTE.getText()));
+                .andExpect(jsonPath("$.quotes[0].key").value(QUOTE.key()))
+                .andExpect(jsonPath("$.quotes[0].text").value(QUOTE.text()));
     }
 
 }
