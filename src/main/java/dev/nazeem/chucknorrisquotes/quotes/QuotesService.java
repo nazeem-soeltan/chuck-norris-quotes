@@ -1,5 +1,7 @@
 package dev.nazeem.chucknorrisquotes.quotes;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class QuotesService {
 
+    private final Clock clock;
     private final QuoteRepository quoteRepository;
     private final ChuckNorrisJokesClient chuckNorrisJokesClient;
 
@@ -29,7 +32,17 @@ public class QuotesService {
     }
 
     public Quote getDailyQuote() {
-        return null;
+        return quoteRepository.findQuoteForToday(clock)
+                .orElseGet(this::fetchAndSaveQuote);
+    }
+
+    private Quote fetchAndSaveQuote() {
+        final var response = fetchJoke();
+
+        final var quote = Quote.from(response);
+        quote.setCreatedAt(Instant.now(clock));
+
+        return quoteRepository.save(quote);
     }
 
     private JokesResponse fetchJoke() {
