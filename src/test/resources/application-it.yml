@@ -1,0 +1,5 @@
+feign:
+  client:
+    config:
+      ChuckNorrisJokesClient:
+        url: http://localhost:${wiremock.server.port}
