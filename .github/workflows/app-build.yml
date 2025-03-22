@@ -45,7 +45,6 @@ jobs:
 
       - name: Build and push Docker image using Buildpacks
         run: mvn spring-boot:build-image \
-          -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository_owner }}/spring-boot-app:latest \
           -Dspring-boot.build-image.publish=true
 
       - name: Verify Docker image
