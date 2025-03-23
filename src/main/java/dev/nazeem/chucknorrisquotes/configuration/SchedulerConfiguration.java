@@ -17,4 +17,12 @@ public class SchedulerConfiguration {
 
         return scheduler;
     }
+
+    @Bean
+    public TaskScheduler quoteTaskScheduler() {
+        final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setThreadNamePrefix("quote-scheduler-");
+
+        return scheduler;
+    }
 }

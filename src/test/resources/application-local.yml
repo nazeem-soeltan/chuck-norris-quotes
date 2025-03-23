@@ -1,0 +1,12 @@
+db:
+  name: cnq
+  user: admin
+  password: password
+
+spring:
+  cloud:
+    gcp:
+      pubsub:
+        project-id: chuck-norris-quotes
+        emulator-host: ${embedded.google.pubsub.host}:${embedded.google.pubsub.port}
+        enabled: true

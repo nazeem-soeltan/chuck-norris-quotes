@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 
 import dev.nazeem.chucknorrisquotes.quotes.data.Quote;
 import dev.nazeem.chucknorrisquotes.quotes.data.QuoteRepository;
+import dev.nazeem.chucknorrisquotes.quotes.publisher.QuotePublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class QuotesService {
     private final Clock clock;
     private final QuoteRepository quoteRepository;
     private final ChuckNorrisJokesClient chuckNorrisJokesClient;
+    private final QuotePublisher dailyQuotePublisher;
 
     public List<Quote> getRandomQuotes(int maxQuotes) {
         return IntStream.range(0, maxQuotes)
@@ -31,18 +33,27 @@ public class QuotesService {
                 .toList();
     }
 
-    public Quote getDailyQuote() {
+    public Quote getOrFetchDailyQuote() {
         return quoteRepository.findQuoteForToday(clock)
-                .orElseGet(this::fetchAndSaveQuote);
+                .orElseGet(this::fetchSaveAndPublishQuote);
     }
 
-    private Quote fetchAndSaveQuote() {
+    public void fetchAndPublishQuote() {
+        final var quote = Quote.from(fetchJoke());
+        dailyQuotePublisher.publishQuote(quote);
+    }
+
+    private Quote fetchSaveAndPublishQuote() {
         final var response = fetchJoke();
 
         final var quote = Quote.from(response);
         quote.setCreatedAt(Instant.now(clock));
 
-        return quoteRepository.save(quote);
+        final var savedQuote = quoteRepository.save(quote);
+
+        dailyQuotePublisher.publishDailyQuote(savedQuote);
+
+        return savedQuote;
     }
 
     private JokesResponse fetchJoke() {

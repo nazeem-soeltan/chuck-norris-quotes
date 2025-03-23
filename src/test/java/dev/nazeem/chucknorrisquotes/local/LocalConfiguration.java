@@ -1,5 +1,7 @@
 package dev.nazeem.chucknorrisquotes.local;
 
+import com.google.api.gax.core.CredentialsProvider;
+import com.google.api.gax.core.NoCredentialsProvider;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +15,11 @@ public class LocalConfiguration {
     @ServiceConnection
     public MongoDBContainer mongoDBContainer() {
         return new MongoDBContainer(DockerImageName.parse("mongo:7.0.16"));
+    }
+
+    @Bean
+    CredentialsProvider credentialsProvider() {
+        return NoCredentialsProvider.create();
     }
 
 }

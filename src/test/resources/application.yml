@@ -3,5 +3,16 @@ db:
   user: admin
   password: password
 
-daily-quote-scheduler:
-  cron: "-"
+spring:
+  cloud:
+    gcp:
+      pubsub:
+        enabled: false
+
+embedded:
+  google:
+    pubsub:
+      project-id: chuck-norris-quotes
+      topics-and-subscriptions:
+        - topic: daily-quote
+        - topic: quote

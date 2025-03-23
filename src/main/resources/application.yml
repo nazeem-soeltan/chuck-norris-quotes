@@ -2,11 +2,30 @@ db:
   name: ${MONGO_DB_NAME}
   user: ${MONGO_DB_USER}
   password: ${MONGO_DB_PASSWORD}
+  uri: mongodb://${db.user}:${db.password}@localhost:27017/${db.name}
 
-spring.data.mongodb.uri: "mongodb://${db.user}:${db.password}@localhost:27017/${db.name}"
+topic-prefix: chuck-norris-quotes.
 
 feign:
   client:
     config:
       ChuckNorrisJokesClient:
         url: https://api.chucknorris.io
+
+spring:
+  application:
+    name: chuck-norris-quotes
+  data:
+    mongodb:
+      uri: ${db.uri}
+  cloud:
+    gcp:
+      pubsub:
+        project-id: chuck-norris-quotes
+    stream:
+      bindings:
+        daily-quote-out-0:
+          destination: ${topic-prefix}daily-quote
+        quote-out-0:
+          destination: ${topic-prefix}quote
+      output-bindings: daily-quote-out-0;quote-out-0
