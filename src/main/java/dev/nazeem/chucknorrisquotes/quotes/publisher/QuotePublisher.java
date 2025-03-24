@@ -21,7 +21,7 @@ public class QuotePublisher {
 
     public void publishDailyQuote(final Quote quote) {
         final var dailyQuoteEvent = DailyQuoteEvent.from(quote);
-        log.info("Publishing daily quote: {}", quote);
+        log.info("Publishing daily quote: {}", dailyQuoteEvent);
         streamBridge.send("daily-quote", dailyQuoteEvent);
     }
 }
