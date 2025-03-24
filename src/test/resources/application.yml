@@ -3,5 +3,8 @@ db:
   user: admin
   password: password
 
-daily-quote-scheduler:
-  cron: "-"
+spring:
+  cloud:
+    gcp:
+      pubsub:
+        enabled: false

@@ -1,5 +1,6 @@
 package dev.nazeem.chucknorrisquotes;
 
+import dev.nazeem.chucknorrisquotes.configuration.PubSubConfiguration;
 import dev.nazeem.chucknorrisquotes.configuration.TestTimeConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +16,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @SpringBootTest
-@Import(TestTimeConfiguration.class)
+@Import({TestTimeConfiguration.class, PubSubConfiguration.class})
 @ActiveProfiles({"it"})
 @AutoConfigureWireMock(port = 0, stubs = "classpath:/client")
 @AutoConfigureMockMvc
