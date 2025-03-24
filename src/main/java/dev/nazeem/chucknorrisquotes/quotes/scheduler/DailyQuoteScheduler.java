@@ -1,5 +1,6 @@
-package dev.nazeem.chucknorrisquotes.quotes;
+package dev.nazeem.chucknorrisquotes.quotes.scheduler;
 
+import dev.nazeem.chucknorrisquotes.quotes.QuotesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,12 +14,12 @@ public class DailyQuoteScheduler {
     private final QuotesService quotesService;
 
     @Scheduled(
-            cron = "${daily-quote-scheduler.cron:0 0 0 * * *}",
+            cron = "${scheduler.daily-quote.cron:0 0 0 * * *}",
             scheduler = "dailyQuoteTaskScheduler")
     public void execute() {
         log.info("DailyQuoteScheduler started ..");
 
-        quotesService.getDailyQuote();
+        quotesService.getOrFetchDailyQuote();
 
         log.info("DailyQuoteScheduler ended ..");
     }

@@ -50,7 +50,7 @@ public class QuotesController {
     @GetMapping(value = "daily-quote")
     @ResponseStatus(OK)
     public QuotesResponse getDailyQuote() {
-        final var quoteDto = QuoteDto.from(quotesService.getDailyQuote());
+        final var quoteDto = QuoteDto.from(quotesService.getOrFetchDailyQuote());
 
         return QuotesResponse.builder()
                 .quotes(List.of(quoteDto))

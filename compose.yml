@@ -1,0 +1,9 @@
+services:
+  mongo:
+    image: mongo:7.0.16
+    ports:
+      - '27017:27017'
+
+  pubsub-emulator:
+    image: google/cloud-sdk:441.0.0-emulators
+    command: sh -c "gcloud beta emulators pubsub start --project=some-project-id --host-port='0.0.0.0:8085'"

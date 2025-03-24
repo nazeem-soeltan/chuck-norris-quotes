@@ -1,0 +1,10 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: compose.yml
+  cloud:
+    gcp:
+      pubsub:
+        enabled: true
+        emulator-host: localhost:8085
