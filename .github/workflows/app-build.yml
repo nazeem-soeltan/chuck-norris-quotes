@@ -52,7 +52,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image using Buildpacks
-        run: ./mvnw spring-boot:build-image \ 
+        run: ./mvnw spring-boot:build-image \
           -Ddocker.publishRegistry.username=${{ github.actor }} \
           -Ddocker.publishRegistry.password=${{ secrets.GITHUB_TOKEN }} \
           -Ddocker.publishRegistry.url=${{ env.REGISTRY }} \
