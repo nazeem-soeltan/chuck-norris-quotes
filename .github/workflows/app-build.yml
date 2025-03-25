@@ -29,14 +29,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          cache: maven
 
       - name: Build with Maven
         run: ./mvnw clean package --no-transfer-progress
@@ -51,12 +44,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image using Buildpacks
-        run: ./mvnw spring-boot:build-image \
-          -Ddocker.publishRegistry.username=${{ github.actor }} \
-          -Ddocker.publishRegistry.password=${{ secrets.GITHUB_TOKEN }} \
-          -Ddocker.publishRegistry.url=${{ env.REGISTRY }} -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository_owner }}/spring-boot-app:latest \
-          -Dspring-boot.build-image.publish=true
+      - name: Build Docker image
+        run: |
+          ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ github.repository }}
+          docker push ${{ env.REGISTRY }}/${{ github.repository }}
 
 #      - name: Verify Docker image
 #        run: docker pull ghcr.io/${{ github.repository_owner }}/spring-boot-app:latest
