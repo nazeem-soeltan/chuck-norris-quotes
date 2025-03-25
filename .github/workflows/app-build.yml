@@ -47,4 +47,4 @@ jobs:
           docker push ${{ env.REGISTRY }}/${{ github.repository }}
 
       - name: Verify Docker image
-        run: docker pull ghcr.io/${{ github.repository_owner }}/spring-boot-app:latest
+        run: docker pull ${{ env.REGISTRY }}/${{ github.repository }}
