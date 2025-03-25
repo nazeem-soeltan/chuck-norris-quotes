@@ -15,10 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
       packages: write
-      attestations: write
-      id-token: write
 
     steps:
       - name: Checkout code
@@ -44,8 +41,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image
-        run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ github.repository }}
+      - name: Build Docker image with buildpacks
+        run: |
+          ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ github.repository }}
+          docker push ${{ env.REGISTRY }}/${{ github.repository }}
 
-#      - name: Verify Docker image
-#        run: docker pull ghcr.io/${{ github.repository_owner }}/spring-boot-app:latest
+      - name: Verify Docker image
+        run: docker pull ghcr.io/${{ github.repository_owner }}/spring-boot-app:latest
